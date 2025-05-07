@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class Main extends ApplicationAdapter implements InputProcessor{
+public class Main extends ApplicationAdapter {
     
 	private SpriteBatch batch;
     private Texture bg;
@@ -51,11 +51,11 @@ public class Main extends ApplicationAdapter implements InputProcessor{
         anim = new Animation<TextureRegion>(1f, te);
         
         time = 0;
-        Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void render() {
+    	logic();
     	
     	time += Gdx.graphics.getDeltaTime();
     	TextureRegion current = anim.getKeyFrame(time, true);
@@ -75,61 +75,26 @@ public class Main extends ApplicationAdapter implements InputProcessor{
         batch.dispose();
         bg.dispose();
     }
-
-	@Override
-	public boolean keyDown(int keycode) {
-		pinwiSprite.translateX(Gdx.graphics.getDeltaTime()*100f);
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		if(keycode==Keys.D) {
-			
-		}
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(float amountX, float amountY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+    
+    public void logic() {
+    	
+    	float delta = Gdx.graphics.getDeltaTime();
+    	
+    	float velocidad = 160.3f;
+    	
+    	if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
+    		pinwiSprite.translateX(velocidad * delta);
+    	}
+    	if(Gdx.input.isKeyPressed(Keys.LEFT)) {
+    		pinwiSprite.translateX(-velocidad * delta);
+    	}
+    	if(Gdx.input.isKeyPressed(Keys.UP)) {
+    		pinwiSprite.translateY(velocidad * delta);
+    	}
+    	if(Gdx.input.isKeyPressed(Keys.DOWN)) {
+    		pinwiSprite.translateY(-velocidad * delta);
+    	}
+    	
+    }
+    
 }
